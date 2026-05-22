@@ -548,13 +548,17 @@
   @media(min-width:1000px){.event-info-grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.event-info-card.wide{grid-column:1/-1}}
   @media(max-width:480px){.event-info-trigger{grid-template-columns:40px minmax(0,1fr) 30px;padding:13px 14px;gap:10px}.event-info-detail-inner{padding:0 14px 15px 14px}.event-info-icon{width:40px;height:40px}.event-info-title{font-size:14px}.event-info-arrow{width:28px;height:28px;line-height:26px}.event-info-card{border-radius:16px;box-shadow:none}.event-info-card:hover{transform:none;box-shadow:0 0 0 1px rgba(236,72,153,.35)}.event-info-card.open{transform:none;box-shadow:0 0 0 1.5px rgba(236,72,153,.6)}.event-info-card.open:hover{transform:none}.event-info-card::before{display:none}}
   /* ===== FOAM EDGES (single fixed video) ===== */
-  /* One video per side, fixed in viewport (doesn't move on scroll).
-     Height = 100vh so it fills exactly the visible viewport, top to bottom. */
-  .foam-edge{position:fixed;top:0;height:100vh;pointer-events:none;z-index:200;mix-blend-mode:screen;overflow:hidden}
-  .foam-edge-left{left:0}
-  .foam-edge-right{right:0}
-  .foam-edge video{height:100vh;width:auto;display:block;filter:saturate(1.1) brightness(1.05)}
-  @media(max-width:600px){.foam-edge video{height:100vh;width:auto}}
+  /* One video per side, fixed in viewport. On desktop video plays at natural
+     aspect ratio. On tablet/mobile, container width is limited and the inner
+     part of the foam is clipped via overflow:hidden so content stays readable. */
+  .foam-edge{position:fixed;top:0;height:100vh;pointer-events:none;z-index:200;mix-blend-mode:screen;overflow:hidden;display:flex}
+  .foam-edge-left{left:0;justify-content:flex-start}
+  .foam-edge-right{right:0;justify-content:flex-end}
+  .foam-edge video{height:100vh;width:auto;display:block;flex-shrink:0;filter:saturate(1.1) brightness(1.05)}
+  /* Tablet: reduce foam width so content is readable */
+  @media(max-width:900px){.foam-edge{width:22vw}}
+  /* Mobile: foam is a narrow side strip, not full overlay */
+  @media(max-width:600px){.foam-edge{width:16vw}}
 </style>
 </head>
 <body>
