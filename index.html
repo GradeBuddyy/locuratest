@@ -549,23 +549,25 @@
   @media(max-width:480px){.event-info-trigger{grid-template-columns:40px minmax(0,1fr) 30px;padding:13px 14px;gap:10px}.event-info-detail-inner{padding:0 14px 15px 14px}.event-info-icon{width:40px;height:40px}.event-info-title{font-size:14px}.event-info-arrow{width:28px;height:28px;line-height:26px}.event-info-card{border-radius:16px;box-shadow:none}.event-info-card:hover{transform:none;box-shadow:0 0 0 1px rgba(236,72,153,.35)}.event-info-card.open{transform:none;box-shadow:0 0 0 1.5px rgba(236,72,153,.6)}.event-info-card.open:hover{transform:none}.event-info-card::before{display:none}}
   /* ===== FOAM EDGES (single fixed video) ===== */
   /* One video per side, fixed in viewport. On desktop video plays at natural
-     aspect ratio. On tablet/mobile, container width is limited and the inner
-     edge fades smoothly to transparent so there are no hard cut-offs. */
+     aspect ratio. On tablet/mobile, the video is shifted outward so the natural
+     foam-to-black transition (already in the source video) sits inside the
+     visible area – this gives a smooth natural fade with no hard cuts. */
   .foam-edge{position:fixed;top:0;height:100vh;pointer-events:none;z-index:200;mix-blend-mode:screen;overflow:hidden;display:flex}
   .foam-edge-left{left:0;justify-content:flex-start}
   .foam-edge-right{right:0;justify-content:flex-end}
   .foam-edge video{height:100vh;width:auto;display:block;flex-shrink:0;filter:saturate(1.1) brightness(1.05)}
-  /* Tablet: medium width with soft fade on inner edge */
+  /* Tablet: wider container + slight outward shift to show natural inner fade */
   @media(max-width:900px){
-    .foam-edge{width:28vw}
-    .foam-edge-left{-webkit-mask-image:linear-gradient(to right,#000 0%,#000 40%,transparent 100%);mask-image:linear-gradient(to right,#000 0%,#000 40%,transparent 100%)}
-    .foam-edge-right{-webkit-mask-image:linear-gradient(to left,#000 0%,#000 40%,transparent 100%);mask-image:linear-gradient(to left,#000 0%,#000 40%,transparent 100%)}
+    .foam-edge{width:34vw}
+    .foam-edge-left video{transform:translateX(-18vw)}
+    .foam-edge-right video{transform:translateX(18vw)}
   }
-  /* Mobile: narrower strip with stronger fade */
+  /* Mobile: narrow strip with stronger outward shift so the foam's natural
+     inner fade (foam → transparent) is fully visible inside the container */
   @media(max-width:600px){
-    .foam-edge{width:32vw}
-    .foam-edge-left{-webkit-mask-image:linear-gradient(to right,#000 0%,#000 30%,transparent 100%);mask-image:linear-gradient(to right,#000 0%,#000 30%,transparent 100%)}
-    .foam-edge-right{-webkit-mask-image:linear-gradient(to left,#000 0%,#000 30%,transparent 100%);mask-image:linear-gradient(to left,#000 0%,#000 30%,transparent 100%)}
+    .foam-edge{width:42vw}
+    .foam-edge-left video{transform:translateX(-25vw)}
+    .foam-edge-right video{transform:translateX(25vw)}
   }
 </style>
 </head>
