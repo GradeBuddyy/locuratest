@@ -550,15 +550,23 @@
   /* ===== FOAM EDGES (single fixed video) ===== */
   /* One video per side, fixed in viewport. On desktop video plays at natural
      aspect ratio. On tablet/mobile, container width is limited and the inner
-     part of the foam is clipped via overflow:hidden so content stays readable. */
+     edge fades smoothly to transparent so there are no hard cut-offs. */
   .foam-edge{position:fixed;top:0;height:100vh;pointer-events:none;z-index:200;mix-blend-mode:screen;overflow:hidden;display:flex}
   .foam-edge-left{left:0;justify-content:flex-start}
   .foam-edge-right{right:0;justify-content:flex-end}
   .foam-edge video{height:100vh;width:auto;display:block;flex-shrink:0;filter:saturate(1.1) brightness(1.05)}
-  /* Tablet: reduce foam width so content is readable */
-  @media(max-width:900px){.foam-edge{width:22vw}}
-  /* Mobile: foam is a narrow side strip, not full overlay */
-  @media(max-width:600px){.foam-edge{width:16vw}}
+  /* Tablet: medium width with soft fade on inner edge */
+  @media(max-width:900px){
+    .foam-edge{width:28vw}
+    .foam-edge-left{-webkit-mask-image:linear-gradient(to right,#000 0%,#000 40%,transparent 100%);mask-image:linear-gradient(to right,#000 0%,#000 40%,transparent 100%)}
+    .foam-edge-right{-webkit-mask-image:linear-gradient(to left,#000 0%,#000 40%,transparent 100%);mask-image:linear-gradient(to left,#000 0%,#000 40%,transparent 100%)}
+  }
+  /* Mobile: narrower strip with stronger fade */
+  @media(max-width:600px){
+    .foam-edge{width:32vw}
+    .foam-edge-left{-webkit-mask-image:linear-gradient(to right,#000 0%,#000 30%,transparent 100%);mask-image:linear-gradient(to right,#000 0%,#000 30%,transparent 100%)}
+    .foam-edge-right{-webkit-mask-image:linear-gradient(to left,#000 0%,#000 30%,transparent 100%);mask-image:linear-gradient(to left,#000 0%,#000 30%,transparent 100%)}
+  }
 </style>
 </head>
 <body>
