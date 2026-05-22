@@ -562,19 +562,24 @@
     .foam-edge-left video{transform:translateX(-18vw)}
     .foam-edge-right video{transform:translateX(18vw)}
   }
-  /* Mobile: narrow strip + very strong outward shift.
-     Analysis: foam in source video extends to ~75-80% of width at densest
-     frames. To guarantee no visible hard cut, the inner clip must land at
-     ≥85% of video width where pixels are pure black (mix-blend-mode renders
-     them as transparent). Math: with container 28vw and shift -75vw,
-     visible video x range = 75vw to 103vw of screen = ~62% to ~85% of
-     video width. The inner edge lands solidly in the black zone, so the
-     cut becomes completely invisible while the natural foam edge fades out
-     organically. */
+  /* Mobile: pixel analysis shows foam reaches 83.7% of video width at densest
+     frames. Pure CSS-shift alone cannot guarantee no hard cut because some
+     foam pixels always sit at the clip line. Solution: combine outward shift
+     with a mask gradient that fades the inner half to fully transparent —
+     so the clip happens in 100% transparent pixels, invisible regardless of
+     what's in the video at that point. */
   @media(max-width:600px){
-    .foam-edge{width:28vw}
-    .foam-edge-left video{transform:translateX(-75vw)}
-    .foam-edge-right video{transform:translateX(75vw)}
+    .foam-edge{width:36vw}
+    .foam-edge-left video{transform:translateX(-55vw)}
+    .foam-edge-right video{transform:translateX(55vw)}
+    .foam-edge-left{
+      -webkit-mask-image:linear-gradient(to right,#000 0%,#000 35%,transparent 100%);
+      mask-image:linear-gradient(to right,#000 0%,#000 35%,transparent 100%);
+    }
+    .foam-edge-right{
+      -webkit-mask-image:linear-gradient(to left,#000 0%,#000 35%,transparent 100%);
+      mask-image:linear-gradient(to left,#000 0%,#000 35%,transparent 100%);
+    }
   }
 </style>
 </head>
