@@ -562,12 +562,12 @@
     .foam-edge-left video{transform:translateX(-18vw)}
     .foam-edge-right video{transform:translateX(18vw)}
   }
-  /* Mobile: narrow strip with stronger outward shift so the foam's natural
-     inner fade (foam → transparent) is fully visible inside the container */
+  /* Mobile: narrower strip + stronger outward shift so the visible inner edge
+     lands in the natural foam→black transition area (no hard cut) */
   @media(max-width:600px){
-    .foam-edge{width:42vw}
-    .foam-edge-left video{transform:translateX(-25vw)}
-    .foam-edge-right video{transform:translateX(25vw)}
+    .foam-edge{width:36vw}
+    .foam-edge-left video{transform:translateX(-38vw)}
+    .foam-edge-right video{transform:translateX(38vw)}
   }
 </style>
 </head>
