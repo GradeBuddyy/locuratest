@@ -562,14 +562,19 @@
     .foam-edge-left video{transform:translateX(-18vw)}
     .foam-edge-right video{transform:translateX(18vw)}
   }
-  /* Mobile: narrow strip + strong outward shift. The foam in the source video
-     extends to ~65% of width. We shift the video so the visible inner edge
-     lands at ~75% of video width — well inside the natural black area where
-     mix-blend-mode makes the cut completely invisible. */
+  /* Mobile: narrow strip + very strong outward shift.
+     Analysis: foam in source video extends to ~75-80% of width at densest
+     frames. To guarantee no visible hard cut, the inner clip must land at
+     ≥85% of video width where pixels are pure black (mix-blend-mode renders
+     them as transparent). Math: with container 28vw and shift -75vw,
+     visible video x range = 75vw to 103vw of screen = ~62% to ~85% of
+     video width. The inner edge lands solidly in the black zone, so the
+     cut becomes completely invisible while the natural foam edge fades out
+     organically. */
   @media(max-width:600px){
-    .foam-edge{width:30vw}
-    .foam-edge-left video{transform:translateX(-55vw)}
-    .foam-edge-right video{transform:translateX(55vw)}
+    .foam-edge{width:28vw}
+    .foam-edge-left video{transform:translateX(-75vw)}
+    .foam-edge-right video{transform:translateX(75vw)}
   }
 </style>
 </head>
