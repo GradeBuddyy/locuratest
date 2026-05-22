@@ -562,12 +562,14 @@
     .foam-edge-left video{transform:translateX(-18vw)}
     .foam-edge-right video{transform:translateX(18vw)}
   }
-  /* Mobile: narrower strip + stronger outward shift so the visible inner edge
-     lands in the natural foam→black transition area (no hard cut) */
+  /* Mobile: narrow strip + strong outward shift. The foam in the source video
+     extends to ~65% of width. We shift the video so the visible inner edge
+     lands at ~75% of video width — well inside the natural black area where
+     mix-blend-mode makes the cut completely invisible. */
   @media(max-width:600px){
-    .foam-edge{width:36vw}
-    .foam-edge-left video{transform:translateX(-38vw)}
-    .foam-edge-right video{transform:translateX(38vw)}
+    .foam-edge{width:30vw}
+    .foam-edge-left video{transform:translateX(-55vw)}
+    .foam-edge-right video{transform:translateX(55vw)}
   }
 </style>
 </head>
